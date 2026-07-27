@@ -13,11 +13,6 @@ export function StartScreen({
 }) {
   return (
     <section className="card start-screen">
-      <p className="eyebrow">알록달록 학교 식당</p>
-      <h2>영양표시 조합 식당</h2>
-      <p className="muted safety">
-        가상 수치 연습용입니다. 실제 건강 처방·체중 평가·알레르기 정보를 입력하거나 저장하지 않습니다.
-      </p>
       <p>{FIXED_TIP}</p>
       <div className="actions">
         <button type="button" className="btn-primary" onClick={onStart}>
