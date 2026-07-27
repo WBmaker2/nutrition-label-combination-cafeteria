@@ -1,0 +1,249 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-07-27T21:28:35.495Z",
+  "activeFeatures": [
+    "nutrition-label-combination-cafeteria",
+    "data",
+    "core"
+  ],
+  "primaryFeature": "nutrition-label-combination-cafeteria",
+  "features": {
+    "nutrition-label-combination-cafeteria": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-27T13:49:15.968Z",
+        "lastUpdated": "2026-07-27T14:00:07.609Z"
+      },
+      "lastFile": "/Users/kimhongnyeon/Dev/cursor/nutrition-label-combination-cafeteria/src/App.tsx"
+    },
+    "data": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-27T13:56:41.361Z",
+        "lastUpdated": "2026-07-27T14:00:21.778Z"
+      },
+      "lastFile": "/Users/kimhongnyeon/Dev/cursor/nutrition-label-combination-cafeteria/src/data/foodCards.test.ts"
+    },
+    "core": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-07-27T21:28:35.495Z",
+        "lastUpdated": "2026-07-27T21:28:35.495Z"
+      },
+      "lastFile": "/Users/kimhongnyeon/.claude/plugins/cache/bkit-marketplace/bkit/1.5.5/lib/core/io.js"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-07-27T13:23:50.309Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-07-27T21:28:35.495Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-07-27T13:49:15.968Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:49:21.913Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:49:22.814Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:49:23.578Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:49:36.981Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:49:40.659Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:50:08.339Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:50:13.269Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:50:13.726Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:50:14.117Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:50:28.717Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:54:52.182Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:56:41.361Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:21.116Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:28.379Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:33.116Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:36.060Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:40.225Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:41.617Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:57:44.052Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:58:21.716Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:58:28.066Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:58:36.549Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:58:39.447Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:58:42.667Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T13:59:08.509Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T14:00:02.591Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T14:00:07.315Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T14:00:07.609Z",
+      "feature": "nutrition-label-combination-cafeteria",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T14:00:21.778Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-07-27T21:28:35.495Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
