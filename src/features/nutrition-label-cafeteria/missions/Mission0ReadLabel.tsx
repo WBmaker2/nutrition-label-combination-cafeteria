@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { getFoodById } from '../../../data/foodCards'
-import { FoodLabelCard } from '../FoodLabelCard'
+import { FoodLabelCard, type LabelField } from '../FoodLabelCard'
 import { MissionShell } from '../MissionShell'
 
 const TITLE = '표시판 읽기 훈련'
+const REQUIRED: LabelField[] = ['serving', 'package', 'sugar', 'sodium']
 
 export function Mission0ReadLabel({
   onBack,
@@ -12,29 +13,24 @@ export function Mission0ReadLabel({
   onBack: () => void
   onComplete: (summary: string) => void
 }) {
-  const [badges, setBadges] = useState<Record<string, { serving: boolean; package: boolean }>>({})
-  const [message] = useState('')
-
-  const confirmBadge = (foodId: string, kind: 'serving' | 'package') => {
-    setBadges((prev) => ({
-      ...prev,
-      [foodId]: { ...(prev[foodId] ?? { serving: false, package: false }), [kind]: true },
-    }))
-  }
+  const [found, setFound] = useState<Record<LabelField, boolean>>({
+    serving: false,
+    package: false,
+    sugar: false,
+    sodium: false,
+  })
 
   const food = getFoodById('cereal')!
-  const picked = new Set(
-    Object.entries(badges['cereal'] ?? {})
-      .filter(([, v]) => v)
-      .map(([k]) => k),
-  )
-  const badgesOk = Boolean(badges['cereal']?.serving && badges['cereal']?.package)
-  const canFinish = badgesOk && picked.size >= 2
+  const confirmField = (kind: LabelField) => {
+    setFound((prev) => ({ ...prev, [kind]: true }))
+  }
+
+  const canFinish = REQUIRED.every((k) => found[k])
 
   return (
     <MissionShell
       title={TITLE}
-      message={message}
+      message="카드에서 1회 제공량, 총 제공량, 당류, 나트륨을 찾아 눌러 보세요."
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>
@@ -43,9 +39,24 @@ export function Mission0ReadLabel({
     >
       <FoodLabelCard
         food={food}
-        confirmed={badges['cereal']}
-        onConfirm={(k) => confirmBadge('cereal', k)}
+        findMode
+        confirmed={found}
+        onFindField={confirmField}
       />
+      <ul className="condition-checklist" aria-label="찾은 항목">
+        <li className={found.serving ? 'check-pass' : 'check-fail'}>
+          1회 제공량: {found.serving ? '찾음' : '아직'}
+        </li>
+        <li className={found.package ? 'check-pass' : 'check-fail'}>
+          총 제공량: {found.package ? '찾음' : '아직'}
+        </li>
+        <li className={found.sugar ? 'check-pass' : 'check-fail'}>
+          당류: {found.sugar ? '찾음' : '아직'}
+        </li>
+        <li className={found.sodium ? 'check-pass' : 'check-fail'}>
+          나트륨: {found.sodium ? '찾음' : '아직'}
+        </li>
+      </ul>
     </MissionShell>
   )
 }

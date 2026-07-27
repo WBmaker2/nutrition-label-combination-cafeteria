@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { FIXED_TIP } from '../../data/updateLog'
 import { ResultCard } from './ResultCard'
 import { UpdateLogModal } from './UpdateLogModal'
+import { StartScreen } from './StartScreen'
+import { MissionHub } from './MissionHub'
 import { MISSION_COUNT, useMissionProgress } from './useMissionProgress'
 import { Mission0ReadLabel } from './missions/Mission0ReadLabel'
 import { Mission1WholePackage } from './missions/Mission1WholePackage'
@@ -15,15 +16,6 @@ type Screen =
   | { name: 'hub' }
   | { name: 'mission'; id: number }
   | { name: 'result'; missionId: number }
-
-export const missionTitles = [
-  '표시판 읽기 훈련',
-  '한 포장 전체 계산',
-  '같은 단위끼리 비교',
-  '학교 간식 조합',
-  '포장 전체와 실제 선택량',
-  '영양표시 조합 식당 최종 주문',
-]
 
 function MissionView({
   id,
@@ -81,46 +73,22 @@ export function NutritionLabelCafeteriaApp() {
       </header>
 
       {screen.name === 'start' && (
-        <section className="card">
-          <p>{FIXED_TIP}</p>
-          <div className="actions">
-            <button type="button" className="btn-primary" onClick={() => goMission(0)}>
-              시작하기
-            </button>
-            {progress.hubUnlocked && (
-              <button type="button" className="btn-secondary" onClick={() => setScreen({ name: 'hub' })}>
-                미션 모음
-              </button>
-            )}
-            <button type="button" className="btn-secondary" onClick={() => setShowLog(true)}>
-              업데이트 내역
-            </button>
-          </div>
-        </section>
+        <StartScreen
+          hubUnlocked={progress.hubUnlocked}
+          onStart={() => goMission(0)}
+          onHub={() => setScreen({ name: 'hub' })}
+          onOpenLog={() => setShowLog(true)}
+        />
       )}
 
       {screen.name === 'hub' && (
-        <section className="card">
-          <h2>미션 모음</h2>
-          <div className="mission-grid">
-            {missionTitles.map((title, id) => (
-              <button
-                key={title}
-                type="button"
-                className="mission-card"
-                disabled={!progress.isUnlocked(id, mode)}
-                onClick={() => goMission(id)}
-              >
-                <span>미션 {id}</span>
-                <strong>{title}</strong>
-                {progress.completed[id] && <em>완료</em>}
-              </button>
-            ))}
-          </div>
-          <button type="button" className="btn-secondary" onClick={() => setScreen({ name: 'start' })}>
-            처음으로
-          </button>
-        </section>
+        <MissionHub
+          completed={progress.completed}
+          mode={mode}
+          isUnlocked={(id) => progress.isUnlocked(id, mode)}
+          onSelect={goMission}
+          onBack={() => setScreen({ name: 'start' })}
+        />
       )}
 
       {screen.name === 'mission' && (
