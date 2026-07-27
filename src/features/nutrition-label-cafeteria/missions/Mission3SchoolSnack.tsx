@@ -73,7 +73,6 @@ export function Mission3SchoolSnack({
         selections={meal.selections}
         confirmedBadges={meal.confirmedBadges}
         totals={meal.totals}
-        maxSelections={2}
         onToggleSelect={toggleSelect}
         onSetServing={meal.setSelection}
         onConfirmBadge={meal.confirmBadge}

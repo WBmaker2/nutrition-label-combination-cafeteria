@@ -147,7 +147,6 @@ export function Mission1WholePackage({
           )
         })}
       </div>
-      {!badgesOk && message === '' && null}
       {badgesOk && !numbersOk && (
         <button
           type="button"

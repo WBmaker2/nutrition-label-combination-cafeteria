@@ -7,7 +7,6 @@ export type BadgeConfirm = { serving: boolean; package: boolean }
 export function useMealInvestigation(foods: FoodCard[]) {
   const [selections, setSelections] = useState<MealSelection[]>([])
   const [confirmedBadges, setConfirmedBadges] = useState<Record<string, BadgeConfirm>>({})
-  const [feedbackKeys, setFeedbackKeys] = useState<string[]>([])
 
   const setSelection = (foodId: string, servingsChosen: number) => {
     setSelections((prev) => {
@@ -33,7 +32,6 @@ export function useMealInvestigation(foods: FoodCard[]) {
   const reset = () => {
     setSelections([])
     setConfirmedBadges({})
-    setFeedbackKeys([])
   }
 
   const totals = useMemo(() => sumSelections(selections, foods), [selections, foods])
@@ -45,8 +43,6 @@ export function useMealInvestigation(foods: FoodCard[]) {
   return {
     selections,
     confirmedBadges,
-    feedbackKeys,
-    setFeedbackKeys,
     setSelection,
     removeSelection,
     confirmBadge,

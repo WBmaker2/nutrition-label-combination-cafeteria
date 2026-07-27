@@ -15,7 +15,6 @@ export function MealBuilder({
   onConfirmBadge,
   onRemove,
   onReset,
-  maxSelections,
 }: {
   foods: FoodCard[]
   selections: MealSelection[]
@@ -26,7 +25,6 @@ export function MealBuilder({
   onConfirmBadge: (foodId: string, kind: 'serving' | 'package') => void
   onRemove: (foodId: string) => void
   onReset: () => void
-  maxSelections?: number
 }) {
   const [narrow, setNarrow] = useState(false)
   const [step, setStep] = useState<Step>('select')
@@ -62,9 +60,7 @@ export function MealBuilder({
               selected={Boolean(sel)}
               onSelect={() => {
                 if (sel) onRemove(food.id)
-                else if (!maxSelections || selections.length < maxSelections) {
-                  onToggleSelect(food.id)
-                }
+                else onToggleSelect(food.id)
               }}
               confirmed={confirmedBadges[food.id]}
               onConfirm={(k) => onConfirmBadge(food.id, k)}
@@ -119,9 +115,7 @@ export function MealBuilder({
                 selected={Boolean(sel)}
                 onSelect={() => {
                   if (sel) onRemove(food.id)
-                  else if (!maxSelections || selections.length < maxSelections) {
-                    onToggleSelect(food.id)
-                  }
+                  else onToggleSelect(food.id)
                 }}
                 confirmed={confirmedBadges[food.id]}
                 onConfirm={(k) => onConfirmBadge(food.id, k)}
