@@ -44,6 +44,7 @@ export function Mission4PackageVsChoice({
   })
   const [shareConfirmed, setShareConfirmed] = useState(false)
   const [aloneConfirmed, setAloneConfirmed] = useState(false)
+  const [servingFeedback, setServingFeedback] = useState('')
 
   const confirmBadge = (foodId: string, kind: 'serving' | 'package') => {
     setBadges((prev) => ({
@@ -117,7 +118,9 @@ export function Mission4PackageVsChoice({
             <Stepper
               value={servings}
               max={food.label.servingsPerPackage}
+              food={food}
               disabled={locked}
+              onBoundaryFeedback={setServingFeedback}
               onChange={(n) => {
                 setCurrent((prev) => ({ ...prev, [foodId]: n }))
                 if (scenario === 'share') setShareConfirmed(false)
@@ -127,6 +130,11 @@ export function Mission4PackageVsChoice({
           </div>
         )
       })}
+      {servingFeedback && (
+        <p className="feedback" role="status">
+          {servingFeedback}
+        </p>
+      )}
       <p>
         현재 합계: 당류{' '}
         {sumSelections(

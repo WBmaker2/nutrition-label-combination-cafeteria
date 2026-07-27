@@ -1,4 +1,6 @@
 import { foodCardAriaLabel } from '../../lib/accessibilityLabels'
+import { assertServingsInRange } from '../../lib/mealValidation'
+import { getFeedbackMessage } from '../../data/feedbackRules'
 import type { FoodCard } from '../../data/types'
 
 export type LabelField = 'serving' | 'package' | 'sugar' | 'sodium'
@@ -32,14 +34,7 @@ export function FoodLabelCard({
   }
 
   return (
-    <article
-      className={`card food-card${selected ? ' selected' : ''}`}
-      aria-label={foodCardAriaLabel(food)}
-      onClick={onSelect}
-      onKeyDown={(e) => e.key === 'Enter' && onSelect?.()}
-      role={onSelect ? 'button' : undefined}
-      tabIndex={onSelect ? 0 : undefined}
-    >
+    <article className={`card food-card${selected ? ' selected' : ''}`} aria-label={foodCardAriaLabel(food)}>
       <div className="food-head">
         <span className="food-icon" aria-hidden="true">
           {food.icon}
@@ -53,20 +48,14 @@ export function FoodLabelCard({
         <button
           type="button"
           className={`badge badge-serving${confirmed?.serving ? ' confirmed' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation()
-            tapBadge('serving')
-          }}
+          onClick={() => tapBadge('serving')}
         >
           1회 제공량 · {unit}
         </button>
         <button
           type="button"
           className={`badge badge-package${confirmed?.package ? ' confirmed' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation()
-            tapBadge('package')
-          }}
+          onClick={() => tapBadge('package')}
         >
           총 제공량 · {food.label.servingsPerPackage}회
         </button>
@@ -85,10 +74,7 @@ export function FoodLabelCard({
                 <button
                   type="button"
                   className={`field-find${confirmed?.sugar ? ' confirmed' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onFindField?.('sugar')
-                  }}
+                  onClick={() => onFindField?.('sugar')}
                 >
                   {food.label.sugarGram}g
                 </button>
@@ -101,10 +87,7 @@ export function FoodLabelCard({
                 <button
                   type="button"
                   className={`field-find${confirmed?.sodium ? ' confirmed' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onFindField?.('sodium')
-                  }}
+                  onClick={() => onFindField?.('sodium')}
                 >
                   {food.label.sodiumMilligram}mg
                 </button>
@@ -115,6 +98,16 @@ export function FoodLabelCard({
           </tr>
         </tbody>
       </table>
+      {onSelect && (
+        <button
+          type="button"
+          className={selected ? 'btn-secondary' : 'btn-primary'}
+          aria-pressed={Boolean(selected)}
+          onClick={onSelect}
+        >
+          {selected ? '선택 해제' : '선택'}
+        </button>
+      )}
     </article>
   )
 }
@@ -122,21 +115,35 @@ export function FoodLabelCard({
 export function Stepper({
   value,
   max,
+  food,
   onChange,
   disabled,
+  onBoundaryFeedback,
 }: {
   value: number
   max: number
+  food: FoodCard
   onChange: (n: number) => void
   disabled?: boolean
+  onBoundaryFeedback?: (message: string) => void
 }) {
+  const tryChange = (next: number) => {
+    const result = assertServingsInRange(next, food)
+    if (!result.ok) {
+      onBoundaryFeedback?.(getFeedbackMessage(result.feedbackKey))
+      return
+    }
+    onBoundaryFeedback?.('')
+    onChange(Math.min(max, next))
+  }
+
   return (
     <div className="stepper" role="group" aria-label="제공량 선택">
       <button
         type="button"
         className="btn-secondary"
         disabled={disabled}
-        onClick={() => onChange(Math.max(1, value - 1))}
+        onClick={() => tryChange(value - 1)}
       >
         −
       </button>
@@ -145,7 +152,7 @@ export function Stepper({
         type="button"
         className="btn-secondary"
         disabled={disabled}
-        onClick={() => onChange(Math.min(max, value + 1))}
+        onClick={() => tryChange(value + 1)}
       >
         +
       </button>

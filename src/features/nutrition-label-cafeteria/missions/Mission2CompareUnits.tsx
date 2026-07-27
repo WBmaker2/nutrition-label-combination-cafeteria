@@ -13,7 +13,6 @@ export function Mission2CompareUnits({
   onComplete: (summary: string) => void
 }) {
   const [badges, setBadges] = useState<Record<string, { serving: boolean; package: boolean }>>({})
-  const [message] = useState('')
   const [sugarPick, setSugarPick] = useState('')
   const [sodiumPick, setSodiumPick] = useState('')
   const [quiz, setQuiz] = useState<'yes' | 'no' | ''>('')
@@ -28,16 +27,18 @@ export function Mission2CompareUnits({
   const compareFoods = ['fruit-cup', 'sandwich', 'juice'].map((fid) => getFoodById(fid)!)
   const sugarAnswer = 'juice'
   const sodiumAnswer = 'sandwich'
+  const badgesOk = compareFoods.every((f) => badges[f.id]?.serving && badges[f.id]?.package)
   const canFinish =
-    compareFoods.every((f) => badges[f.id]?.serving && badges[f.id]?.package) &&
-    sugarPick === sugarAnswer &&
-    sodiumPick === sodiumAnswer &&
-    quiz === 'no'
+    badgesOk && sugarPick === sugarAnswer && sodiumPick === sodiumAnswer && quiz === 'no'
 
   return (
     <MissionShell
       title={TITLE}
-      message={message}
+      message={
+        badgesOk
+          ? '배지를 확인했어요. 당류·나트륨을 따로 비교해 보세요.'
+          : '먼저 각 식품의 1회·총 제공량 배지를 확인해 주세요.'
+      }
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>
@@ -54,7 +55,8 @@ export function Mission2CompareUnits({
           onConfirm={(k) => confirmBadge(food.id, k)}
         />
       ))}
-      <fieldset>
+      {!badgesOk && <p className="hint">배지를 모두 확인한 뒤에 비교·퀴즈를 풀 수 있어요.</p>}
+      <fieldset disabled={!badgesOk}>
         <legend>당류(g)가 가장 큰 식품은?</legend>
         {compareFoods.map((f) => (
           <label key={f.id}>
@@ -68,7 +70,7 @@ export function Mission2CompareUnits({
           </label>
         ))}
       </fieldset>
-      <fieldset>
+      <fieldset disabled={!badgesOk}>
         <legend>나트륨(mg)이 가장 큰 식품은?</legend>
         {compareFoods.map((f) => (
           <label key={f.id}>
@@ -82,7 +84,7 @@ export function Mission2CompareUnits({
           </label>
         ))}
       </fieldset>
-      <fieldset>
+      <fieldset disabled={!badgesOk}>
         <legend>당류 g와 나트륨 mg를 한 합계로 더할 수 있나요?</legend>
         <label>
           <input type="radio" name="quiz" checked={quiz === 'yes'} onChange={() => setQuiz('yes')} />{' '}

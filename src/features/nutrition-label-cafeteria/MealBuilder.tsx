@@ -28,6 +28,7 @@ export function MealBuilder({
 }) {
   const [narrow, setNarrow] = useState(false)
   const [step, setStep] = useState<Step>('select')
+  const [servingFeedback, setServingFeedback] = useState('')
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 640px)')
@@ -73,12 +74,11 @@ export function MealBuilder({
                 <Stepper
                   value={sel.servingsChosen}
                   max={food.label.servingsPerPackage}
+                  food={food}
                   disabled={servingsLocked(food.id)}
                   onChange={(n) => onSetServing(food.id, n)}
+                  onBoundaryFeedback={setServingFeedback}
                 />
-                <button type="button" className="btn-secondary" onClick={() => onRemove(food.id)}>
-                  선택 취소
-                </button>
               </>
             )}
           </div>
@@ -149,12 +149,11 @@ export function MealBuilder({
               <Stepper
                 value={selection.servingsChosen}
                 max={food.label.servingsPerPackage}
+                food={food}
                 disabled={servingsLocked(food.id)}
                 onChange={(n) => onSetServing(food.id, n)}
+                onBoundaryFeedback={setServingFeedback}
               />
-              <button type="button" className="btn-secondary" onClick={() => onRemove(food.id)}>
-                선택 취소
-              </button>
             </div>
           ))}
           <div className="actions">
@@ -196,6 +195,11 @@ export function MealBuilder({
           당류 합: {totals.sugarGram}g · 나트륨 합: {totals.sodiumMilligram}mg
         </p>
       )}
+      {servingFeedback && (
+        <p className="feedback" role="status">
+          {servingFeedback}
+        </p>
+      )}
       <div className="actions">
         <button
           type="button"
@@ -203,6 +207,7 @@ export function MealBuilder({
           onClick={() => {
             onReset()
             setStep('select')
+            setServingFeedback('')
           }}
         >
           처음부터 다시 계산
