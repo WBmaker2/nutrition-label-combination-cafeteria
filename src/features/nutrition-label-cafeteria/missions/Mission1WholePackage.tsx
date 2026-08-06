@@ -82,7 +82,7 @@ export function Mission1WholePackage({
     >
       <div className="grid-2">
         {expected.map(({ food, sugar, sodium }) => {
-          const ready = badges[food.id]?.serving && badges[food.id]?.package]
+          const ready = badges[food.id]?.serving && badges[food.id]?.package
           const picked = answers[food.id] ?? { sugar: null, sodium: null }
           const correct = picked.sugar === sugar && picked.sodium === sodium
           const times = food.label.servingsPerPackage
