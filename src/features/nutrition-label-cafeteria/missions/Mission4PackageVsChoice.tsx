@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { foodCards, getFoodById } from '../../../data/foodCards'
 import type { MealSelection } from '../../../data/types'
 import { sumSelections } from '../../../lib/nutritionCalculation'
+import { CheerBanner } from '../CheerBanner'
 import { FoodLabelCard, Stepper } from '../FoodLabelCard'
 import { MissionShell } from '../MissionShell'
 
@@ -73,7 +74,7 @@ export function Mission4PackageVsChoice({
   return (
     <MissionShell
       title={TITLE}
-      message="나누어 먹기·혼자 먹기에서 제공량을 맞춘 뒤, 각각 「이 시나리오 확인」을 눌러 주세요."
+      message="나누어 먹기·혼자 먹기에서 목표 제공량에 맞춘 뒤, 각각 「이 시나리오 확인」을 눌러 주세요."
       finishHint={
         canFinish
           ? undefined
@@ -107,13 +108,30 @@ export function Mission4PackageVsChoice({
       </div>
       <p className="hint">
         {scenario === 'share'
-          ? '세 식품을 친구와 나누어 각 1회씩 선택해 보세요.'
+          ? '세 식품을 친구와 나누어 각 1회씩 맞춰 보세요.'
           : '크래커·주스는 포장 전체, 요거트는 1회로 맞춰 보세요.'}
       </p>
+      <div className="target-board" aria-label="목표 제공량">
+        <p className="target-board-title">이번 목표 제공량</p>
+        <ul>
+          {expected.map((e) => {
+            const food = getFoodById(e.foodId)!
+            const whole = e.servingsChosen === food.label.servingsPerPackage
+            return (
+              <li key={e.foodId}>
+                <strong>{food.name}</strong>: {e.servingsChosen}회
+                {whole ? ' (포장 전체)' : ''}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
       {FOOD_IDS.map((foodId) => {
         const food = getFoodById(foodId)!
         const servings = current[foodId] ?? 1
+        const target = expected.find((e) => e.foodId === foodId)!.servingsChosen
         const locked = !(badges[foodId]?.serving && badges[foodId]?.package)
+        const match = servings === target
         return (
           <div key={foodId}>
             <FoodLabelCard
@@ -122,6 +140,15 @@ export function Mission4PackageVsChoice({
               onConfirm={(k) => confirmBadge(foodId, k)}
             />
             {locked && <p className="hint">「눌러 확인」 후 제공량을 조절할 수 있어요.</p>}
+            <p className={`target-serving${match && !locked ? ' match' : ''}`}>
+              목표: {target}회
+              {target === food.label.servingsPerPackage ? ' (포장 전체)' : ''} · 지금: {servings}회
+              {!locked && !match && (
+                <span className="target-dir">
+                  {servings < target ? ' → 더 늘려 보세요' : ' → 줄여 보세요'}
+                </span>
+              )}
+            </p>
             <Stepper
               value={servings}
               max={food.label.servingsPerPackage}
@@ -156,10 +183,10 @@ export function Mission4PackageVsChoice({
         mg
       </p>
       {!scenarioOk && badgesOk && (
-        <p className="feedback">시나리오에 맞는 제공량인지 다시 확인해 보세요.</p>
+        <p className="feedback">목표 제공량 표를 보고 −/+ 를 맞춰 보세요.</p>
       )}
       {scenarioOk && badgesOk && (
-        <p className="feedback">제공량이 시나리오와 맞아요. 확인해 주세요.</p>
+        <CheerBanner text="제공량이 시나리오와 맞아요. 확인해 주세요!" stickers="⭐" />
       )}
       <button
         type="button"

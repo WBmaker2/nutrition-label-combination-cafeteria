@@ -3,6 +3,7 @@ import { ResultCard } from './ResultCard'
 import { UpdateLogModal } from './UpdateLogModal'
 import { StartScreen } from './StartScreen'
 import { MissionHub } from './MissionHub'
+import { MissionProgressBar } from './MissionProgressBar'
 import { MISSION_COUNT, useMissionProgress } from './useMissionProgress'
 import { Mission0ReadLabel } from './missions/Mission0ReadLabel'
 import { Mission1WholePackage } from './missions/Mission1WholePackage'
@@ -51,6 +52,12 @@ export function NutritionLabelCafeteriaApp() {
   const [lastResult, setLastResult] = useState('')
 
   const mode: 'linear' | 'hub' = progress.hubUnlocked ? 'hub' : 'linear'
+  const progressMissionId =
+    screen.name === 'mission'
+      ? screen.id
+      : screen.name === 'result'
+        ? screen.missionId
+        : null
 
   const goMission = (id: number) => {
     if (progress.isUnlocked(id, mode)) setScreen({ name: 'mission', id })
@@ -67,15 +74,25 @@ export function NutritionLabelCafeteriaApp() {
       <header className="app-header">
         <p className="eyebrow">알록달록 학교 식당</p>
         <h1>영양표시 조합 식당</h1>
-        <p className="muted safety">
-          연습용 가상 숫자예요. 진짜 건강·체중·알레르기 정보는 넣지 않아요.
-        </p>
+        {screen.name === 'start' && (
+          <p className="muted safety">
+            연습용 가상 숫자예요. 진짜 건강·체중·알레르기 정보는 넣지 않아요.
+          </p>
+        )}
       </header>
+
+      {progressMissionId !== null && (
+        <MissionProgressBar currentId={progressMissionId} completed={progress.completed} />
+      )}
 
       {screen.name === 'start' && (
         <StartScreen
           hubUnlocked={progress.hubUnlocked}
-          onStart={() => goMission(0)}
+          completedCount={progress.completedCount}
+          onStart={() => {
+            const next = progress.completed.findIndex((c) => !c)
+            goMission(next === -1 ? 0 : next)
+          }}
           onHub={() => setScreen({ name: 'hub' })}
           onOpenLog={() => setShowLog(true)}
         />

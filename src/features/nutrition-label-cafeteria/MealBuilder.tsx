@@ -89,8 +89,20 @@ export function MealBuilder({
 
   const narrowFlow = (
     <div className="meal-builder-narrow">
+      <div className="builder-progress" aria-hidden="true">
+        <div
+          className="builder-progress-fill"
+          style={{
+            width: step === 'select' ? '33%' : step === 'servings' ? '66%' : '100%',
+          }}
+        />
+      </div>
+      <p className="muted builder-step-label">
+        단계 {step === 'select' ? '1' : step === 'servings' ? '2' : '3'} / 3 —{' '}
+        {step === 'select' ? '식품 선택' : step === 'servings' ? '제공량' : '합계'}
+      </p>
       <div className="step-tabs" role="tablist" aria-label="식사 구성 단계">
-        {(['select', 'servings', 'summary'] as Step[]).map((s) => (
+        {(['select', 'servings', 'summary'] as Step[]).map((s, i) => (
           <button
             key={s}
             type="button"
@@ -99,7 +111,7 @@ export function MealBuilder({
             aria-selected={step === s}
             onClick={() => setStep(s)}
           >
-            {s === 'select' ? '식품 선택' : s === 'servings' ? '제공량' : '합계'}
+            {i + 1}. {s === 'select' ? '식품 선택' : s === 'servings' ? '제공량' : '합계'}
           </button>
         ))}
       </div>

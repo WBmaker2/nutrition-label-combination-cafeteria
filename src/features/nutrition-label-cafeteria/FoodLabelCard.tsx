@@ -58,7 +58,7 @@ export function FoodLabelCard({
       <div className="badge-row">
         <button
           type="button"
-          className={`badge badge-serving${confirmed?.serving ? ' confirmed' : ' needs-tap'}`}
+          className={`badge badge-serving${confirmed?.serving ? ' confirmed anim-confirm' : ' needs-tap'}`}
           onClick={() => tapBadge('serving')}
           aria-pressed={Boolean(confirmed?.serving)}
         >
@@ -66,7 +66,7 @@ export function FoodLabelCard({
         </button>
         <button
           type="button"
-          className={`badge badge-package${confirmed?.package ? ' confirmed' : ' needs-tap'}`}
+          className={`badge badge-package${confirmed?.package ? ' confirmed anim-confirm' : ' needs-tap'}`}
           onClick={() => tapBadge('package')}
           aria-pressed={Boolean(confirmed?.package)}
         >
@@ -87,7 +87,7 @@ export function FoodLabelCard({
               {findMode ? (
                 <button
                   type="button"
-                  className={`field-find${confirmed?.sugar ? ' confirmed' : ' needs-tap'}`}
+                  className={`field-find${confirmed?.sugar ? ' confirmed anim-confirm' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sugar')}
                   aria-pressed={Boolean(confirmed?.sugar)}
                 >
@@ -101,7 +101,7 @@ export function FoodLabelCard({
               {findMode ? (
                 <button
                   type="button"
-                  className={`field-find${confirmed?.sodium ? ' confirmed' : ' needs-tap'}`}
+                  className={`field-find${confirmed?.sodium ? ' confirmed anim-confirm' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sodium')}
                   aria-pressed={Boolean(confirmed?.sodium)}
                 >

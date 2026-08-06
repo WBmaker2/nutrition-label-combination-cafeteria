@@ -54,11 +54,13 @@ export function ConditionChecklist({
   }
 
   return (
-    <ul className="condition-checklist" aria-label="조건 확인">
+    <ul className="condition-checklist sticker-list" aria-label="조건 확인">
       {items.map((item) => (
-        <li key={item.key} className={item.ok ? 'check-pass' : 'check-fail'}>
-          <span aria-hidden="true">{item.ok ? '✓' : '○'}</span>{' '}
-          {item.label}: {item.ok ? '만족' : '미충족'}
+        <li key={item.key} className={item.ok ? 'check-pass sticker-pop' : 'check-fail'}>
+          <span className="sticker" aria-hidden="true">
+            {item.ok ? '⭐' : '○'}
+          </span>{' '}
+          {item.label}: {item.ok ? '잘했어요!' : '아직이에요'}
         </li>
       ))}
     </ul>

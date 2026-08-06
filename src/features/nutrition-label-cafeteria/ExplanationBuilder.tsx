@@ -94,7 +94,11 @@ export function ExplanationBuilder({
       {assembled && !match && (
         <p className="feedback">조립한 숫자가 현재 선택·합계와 일치하는지 다시 확인해 보세요.</p>
       )}
-      {match && <p className="feedback">제공량을 확인하고 두 영양소를 따로 계산했어요.</p>}
+      {match && (
+        <p className="feedback feedback-correct anim-pop" role="status">
+          ⭐ 맞아요! 제공량을 확인하고 두 영양소를 따로 계산했어요.
+        </p>
+      )}
     </fieldset>
   )
 }

@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
-import { HUB_KEY, MISSION_COUNT, useMissionProgress } from './useMissionProgress'
+import {
+  COMPLETED_KEY,
+  HUB_KEY,
+  MISSION_COUNT,
+  useMissionProgress,
+} from './useMissionProgress'
 
 describe('useMissionProgress', () => {
   beforeEach(() => {
@@ -23,6 +28,9 @@ describe('useMissionProgress', () => {
     expect(result.current.completed.every(Boolean)).toBe(true)
     expect(result.current.hubUnlocked).toBe(true)
     expect(localStorage.getItem(HUB_KEY)).toBe('1')
+    expect(localStorage.getItem(COMPLETED_KEY)).toBe(
+      JSON.stringify(Array(MISSION_COUNT).fill(true)),
+    )
     expect(result.current.isUnlocked(5, 'hub')).toBe(true)
   })
 
@@ -33,5 +41,16 @@ describe('useMissionProgress', () => {
     expect(result.current.hubUnlocked).toBe(true)
     expect(result.current.isUnlocked(3, 'hub')).toBe(true)
     expect(result.current.isUnlocked(1, 'linear')).toBe(false)
+  })
+
+  it('restores completed missions from localStorage on mount', () => {
+    const saved = [true, true, false, false, false, false]
+    localStorage.setItem(COMPLETED_KEY, JSON.stringify(saved))
+    const { result } = renderHook(() => useMissionProgress())
+
+    expect(result.current.completed).toEqual(saved)
+    expect(result.current.completedCount).toBe(2)
+    expect(result.current.isUnlocked(2, 'linear')).toBe(true)
+    expect(result.current.isUnlocked(3, 'linear')).toBe(false)
   })
 })
