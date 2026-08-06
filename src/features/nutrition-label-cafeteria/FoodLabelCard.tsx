@@ -33,8 +33,14 @@ export function FoodLabelCard({
     else onConfirm?.(kind)
   }
 
+  const needBadgeTap =
+    Boolean(onConfirm || findMode) && !(confirmed?.serving && confirmed?.package)
+
   return (
-    <article className={`card food-card${selected ? ' selected' : ''}`} aria-label={foodCardAriaLabel(food)}>
+    <article
+      className={`card food-card${selected ? ' selected' : ''}`}
+      aria-label={foodCardAriaLabel(food)}
+    >
       <div className="food-head">
         <span className="food-icon" aria-hidden="true">
           {food.icon}
@@ -44,20 +50,28 @@ export function FoodLabelCard({
           <p className="muted">{food.note}</p>
         </div>
       </div>
+      {needBadgeTap && (
+        <p className="tap-cue" role="status">
+          👇 아래 버튼을 눌러 확인해 주세요
+        </p>
+      )}
       <div className="badge-row">
         <button
           type="button"
-          className={`badge badge-serving${confirmed?.serving ? ' confirmed' : ''}`}
+          className={`badge badge-serving${confirmed?.serving ? ' confirmed' : ' needs-tap'}`}
           onClick={() => tapBadge('serving')}
+          aria-pressed={Boolean(confirmed?.serving)}
         >
-          1회 제공량 · {unit}
+          {confirmed?.serving ? '✓ ' : '눌러 확인 · '}1회 제공량 · {unit}
         </button>
         <button
           type="button"
-          className={`badge badge-package${confirmed?.package ? ' confirmed' : ''}`}
+          className={`badge badge-package${confirmed?.package ? ' confirmed' : ' needs-tap'}`}
           onClick={() => tapBadge('package')}
+          aria-pressed={Boolean(confirmed?.package)}
         >
-          총 제공량 · {food.label.servingsPerPackage}회
+          {confirmed?.package ? '✓ ' : '눌러 확인 · '}총 제공량 · {food.label.servingsPerPackage}
+          회
         </button>
       </div>
       <table className="nutrition-table">
@@ -73,10 +87,11 @@ export function FoodLabelCard({
               {findMode ? (
                 <button
                   type="button"
-                  className={`field-find${confirmed?.sugar ? ' confirmed' : ''}`}
+                  className={`field-find${confirmed?.sugar ? ' confirmed' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sugar')}
+                  aria-pressed={Boolean(confirmed?.sugar)}
                 >
-                  {food.label.sugarGram}g
+                  {confirmed?.sugar ? `✓ ${food.label.sugarGram}g` : `눌러 찾기 · ${food.label.sugarGram}g`}
                 </button>
               ) : (
                 `${food.label.sugarGram}g`
@@ -86,10 +101,13 @@ export function FoodLabelCard({
               {findMode ? (
                 <button
                   type="button"
-                  className={`field-find${confirmed?.sodium ? ' confirmed' : ''}`}
+                  className={`field-find${confirmed?.sodium ? ' confirmed' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sodium')}
+                  aria-pressed={Boolean(confirmed?.sodium)}
                 >
-                  {food.label.sodiumMilligram}mg
+                  {confirmed?.sodium
+                    ? `✓ ${food.label.sodiumMilligram}mg`
+                    : `눌러 찾기 · ${food.label.sodiumMilligram}mg`}
                 </button>
               ) : (
                 `${food.label.sodiumMilligram}mg`
@@ -105,7 +123,7 @@ export function FoodLabelCard({
           aria-pressed={Boolean(selected)}
           onClick={onSelect}
         >
-          {selected ? '선택 해제' : '선택'}
+          {selected ? '선택 해제' : '이 식품 고르기'}
         </button>
       )}
     </article>

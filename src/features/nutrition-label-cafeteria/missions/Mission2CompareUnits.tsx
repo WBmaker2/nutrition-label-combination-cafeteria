@@ -36,8 +36,15 @@ export function Mission2CompareUnits({
       title={TITLE}
       message={
         badgesOk
-          ? '배지를 확인했어요. 당류·나트륨을 따로 비교해 보세요.'
-          : '먼저 각 식품의 1회·총 제공량 배지를 확인해 주세요.'
+          ? '확인했어요! 이제 당류·나트륨을 따로 비교해 보세요.'
+          : '각 식품의 「눌러 확인」 버튼을 모두 눌러 주세요.'
+      }
+      finishHint={
+        !badgesOk
+          ? '식품마다 「눌러 확인」을 눌러 주세요'
+          : !canFinish
+            ? '비교 문제와 퀴즈를 모두 맞춰 주세요'
+            : undefined
       }
       onBack={onBack}
       canFinish={canFinish}
@@ -55,7 +62,9 @@ export function Mission2CompareUnits({
           onConfirm={(k) => confirmBadge(food.id, k)}
         />
       ))}
-      {!badgesOk && <p className="hint">배지를 모두 확인한 뒤에 비교·퀴즈를 풀 수 있어요.</p>}
+      {!badgesOk && (
+        <p className="hint">「눌러 확인」을 모두 누른 뒤에 비교·퀴즈를 풀 수 있어요.</p>
+      )}
       <fieldset disabled={!badgesOk}>
         <legend>당류(g)가 가장 큰 식품은?</legend>
         {compareFoods.map((f) => (

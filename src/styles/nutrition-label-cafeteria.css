@@ -27,7 +27,10 @@ body,
 body {
   font-family: var(--font-body);
   color: var(--color-ink);
-  background: var(--color-bg);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, #dff5ef 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 90% 5%, #ffe8e4 0%, transparent 50%),
+    var(--color-bg);
   line-height: 1.5;
 }
 
@@ -161,6 +164,29 @@ input:focus-visible {
 
 .badge.confirmed {
   box-shadow: inset 0 0 0 2px var(--color-mint);
+}
+
+.badge.needs-tap,
+.field-find.needs-tap {
+  box-shadow: 0 0 0 2px rgba(43, 184, 166, 0.35);
+  animation: pulse-tap 1.6s ease-in-out infinite;
+}
+
+.tap-cue {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-coral);
+}
+
+@keyframes pulse-tap {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
 }
 
 .food-card.selected {
@@ -318,19 +344,134 @@ input:not([type]) {
 }
 
 .field-find {
-  background: transparent;
-  border: 2px dashed var(--color-border);
+  background: #fffdf8;
+  border: 2px dashed var(--color-mint);
   border-radius: 8px;
   padding: 0.25rem 0.5rem;
   min-height: var(--touch-min);
   width: 100%;
   text-align: left;
+  font-weight: 700;
 }
 
 .field-find.confirmed {
   border-style: solid;
   border-color: var(--color-mint);
   background: #e8f8f4;
+  animation: none;
+}
+
+.calc-hint {
+  background: #fff8e8;
+  border: 2px solid #f0d48a;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  margin: 0.5rem 0 0.75rem;
+  font-weight: 700;
+  color: #6a4e12;
+}
+
+.finish-hint {
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: var(--color-coral);
+}
+
+.start-screen {
+  text-align: center;
+  padding: 1.5rem 1.25rem 1.75rem;
+}
+
+.start-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #e8f8f4 0%, #fff0ee 100%);
+}
+
+.tray-emoji {
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.tray-foods {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.start-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.start-lead {
+  margin: 0 auto 1rem;
+  max-width: 36rem;
+  color: var(--color-muted);
+}
+
+.tip-details {
+  text-align: left;
+  margin: 0 auto 1rem;
+  max-width: 36rem;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0.5rem 0.85rem;
+}
+
+.tip-details summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-mint);
+}
+
+.btn-lg {
+  padding: 0.85rem 1.35rem;
+  font-size: 1.05rem;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-muted);
+  border-color: transparent;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.result-card {
+  text-align: center;
+}
+
+.celebrate {
+  margin: 0 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-coral);
+  animation: pop-in 0.45s ease-out;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.result-card .result-box {
+  text-align: left;
+}
+
+.result-card .actions {
+  justify-content: center;
 }
 
 .step-tabs {

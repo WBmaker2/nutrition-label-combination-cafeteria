@@ -69,7 +69,7 @@ export function MealBuilder({
             {sel && (
               <>
                 {!badgeOk(food.id) && (
-                  <p className="hint">제공량을 정하기 전에 1회·포장 전체 배지를 확인해 주세요.</p>
+                  <p className="hint">제공량을 정하기 전에 「눌러 확인」으로 1회·총 제공량을 확인해 주세요.</p>
                 )}
                 <Stepper
                   value={sel.servingsChosen}
@@ -144,7 +144,7 @@ export function MealBuilder({
                 onConfirm={(k) => onConfirmBadge(food.id, k)}
               />
               {!badgeOk(food.id) && (
-                <p className="hint">배지를 확인한 뒤에 제공량을 정할 수 있어요.</p>
+                <p className="hint">「눌러 확인」을 누른 뒤에 제공량을 정할 수 있어요.</p>
               )}
               <Stepper
                 value={selection.servingsChosen}

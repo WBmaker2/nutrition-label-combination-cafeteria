@@ -34,7 +34,7 @@ export function ExplanationBuilder({
 
   return (
     <fieldset className="explanation-builder">
-      <legend>근거 문장 조립 (칩만 선택)</legend>
+      <legend>근거 문장 만들기 (숫자만 고르기)</legend>
       {extraBlank && (
         <div className="chip-row">
           <p>{extraBlank.label}</p>
@@ -62,8 +62,8 @@ export function ExplanationBuilder({
         mg입니다.
       </p>
       <div className="chip-row">
-        <p>당류 (g)</p>
-        <div className="chips" role="group" aria-label="당류 숫자 칩">
+        <p>당류 (g) — 숫자 고르기</p>
+        <div className="chips" role="group" aria-label="당류 숫자 고르기">
           {sugarChips.map((n) => (
             <button
               key={`s-${n}`}
@@ -71,14 +71,14 @@ export function ExplanationBuilder({
               className={values.sugarGram === n ? 'chip selected' : 'chip'}
               onClick={() => onChange({ ...values, sugarGram: n })}
             >
-              {n}
+              {n}g
             </button>
           ))}
         </div>
       </div>
       <div className="chip-row">
-        <p>나트륨 (mg)</p>
-        <div className="chips" role="group" aria-label="나트륨 숫자 칩">
+        <p>나트륨 (mg) — 숫자 고르기</p>
+        <div className="chips" role="group" aria-label="나트륨 숫자 고르기">
           {sodiumChips.map((n) => (
             <button
               key={`n-${n}`}
@@ -86,7 +86,7 @@ export function ExplanationBuilder({
               className={values.sodiumMilligram === n ? 'chip selected' : 'chip'}
               onClick={() => onChange({ ...values, sodiumMilligram: n })}
             >
-              {n}
+              {n}mg
             </button>
           ))}
         </div>

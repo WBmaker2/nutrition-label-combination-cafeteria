@@ -60,6 +60,11 @@ export function Mission3SchoolSnack({
     <MissionShell
       title={TITLE}
       message={message || condition.explanation}
+      finishHint={
+        canFinish
+          ? undefined
+          : '식품 고르기 → 「눌러 확인」 → 조건 맞추기 → 숫자 고르기'
+      }
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>

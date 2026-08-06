@@ -73,7 +73,14 @@ export function Mission4PackageVsChoice({
   return (
     <MissionShell
       title={TITLE}
-      message="나누어 먹기·혼자 먹기 시나리오에서 제공량을 맞춘 뒤 각각 확인해 주세요."
+      message="나누어 먹기·혼자 먹기에서 제공량을 맞춘 뒤, 각각 「이 시나리오 확인」을 눌러 주세요."
+      finishHint={
+        canFinish
+          ? undefined
+          : !badgesOk
+            ? '각 식품의 「눌러 확인」을 눌러 주세요'
+            : '두 시나리오를 모두 확인해 주세요'
+      }
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>
@@ -114,7 +121,7 @@ export function Mission4PackageVsChoice({
               confirmed={badges[foodId]}
               onConfirm={(k) => confirmBadge(foodId, k)}
             />
-            {locked && <p className="hint">배지 확인 후 제공량을 조절할 수 있어요.</p>}
+            {locked && <p className="hint">「눌러 확인」 후 제공량을 조절할 수 있어요.</p>}
             <Stepper
               value={servings}
               max={food.label.servingsPerPackage}

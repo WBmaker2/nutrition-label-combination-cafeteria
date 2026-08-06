@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { FIXED_TIP } from '../../data/updateLog'
 
 export function MissionShell({
   title,
   message,
+  finishHint,
   children,
   onBack,
   canFinish,
@@ -11,6 +11,8 @@ export function MissionShell({
 }: {
   title: string
   message?: string
+  /** Shown when 완료 is disabled — what is still missing */
+  finishHint?: string
   children: ReactNode
   onBack: () => void
   canFinish: boolean
@@ -19,9 +21,13 @@ export function MissionShell({
   return (
     <section className="card mission-shell">
       <h2>{title}</h2>
-      <p className="muted">{FIXED_TIP}</p>
       {message && <p className="hint">{message}</p>}
       {children}
+      {!canFinish && finishHint && (
+        <p className="finish-hint" role="status">
+          아직: {finishHint}
+        </p>
+      )}
       <div className="actions">
         <button type="button" className="btn-secondary" onClick={onBack}>
           뒤로

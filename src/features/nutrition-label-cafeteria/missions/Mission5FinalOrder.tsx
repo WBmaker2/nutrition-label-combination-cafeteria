@@ -58,6 +58,11 @@ export function Mission5FinalOrder({
     <MissionShell
       title={TITLE}
       message={condition.explanation}
+      finishHint={
+        canFinish
+          ? undefined
+          : '조합 고르기 → 「눌러 확인」 → 조건·문장·숫자 맞추기'
+      }
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>

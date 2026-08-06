@@ -30,7 +30,8 @@ export function Mission0ReadLabel({
   return (
     <MissionShell
       title={TITLE}
-      message="카드에서 1회 제공량, 총 제공량, 당류, 나트륨을 찾아 눌러 보세요."
+      message="카드에서 「눌러 확인」「눌러 찾기」를 눌러 1회 제공량, 총 제공량, 당류, 나트륨을 찾아 보세요."
+      finishHint={canFinish ? undefined : '아직 찾지 않은 항목을 눌러 주세요'}
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>

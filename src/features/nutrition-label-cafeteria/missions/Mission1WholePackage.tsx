@@ -58,10 +58,18 @@ export function Mission1WholePackage({
     ).sort((a, b) => a - b)
   }
 
+  const finishHint = !badgesOk
+    ? '각 식품의 「눌러 확인」 버튼을 모두 눌러 주세요'
+    : '두 식품의 포장 전체 숫자를 모두 맞춰 주세요'
+
   return (
     <MissionShell
       title={TITLE}
-      message={message || '배지를 확인한 뒤, 포장 전체 당류·나트륨을 칩으로 골라 확인하세요.'}
+      message={
+        message ||
+        '「눌러 확인」으로 1회·총 제공량을 확인한 뒤, 포장 전체 숫자를 골라 보세요.'
+      }
+      finishHint={finishHint}
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>
@@ -74,9 +82,10 @@ export function Mission1WholePackage({
     >
       <div className="grid-2">
         {expected.map(({ food, sugar, sodium }) => {
-          const ready = badges[food.id]?.serving && badges[food.id]?.package
+          const ready = badges[food.id]?.serving && badges[food.id]?.package]
           const picked = answers[food.id] ?? { sugar: null, sodium: null }
           const correct = picked.sugar === sugar && picked.sodium === sodium
+          const times = food.label.servingsPerPackage
           return (
             <div key={food.id}>
               <FoodLabelCard
@@ -87,12 +96,20 @@ export function Mission1WholePackage({
               <p className="muted">
                 1회만: 당류 {food.label.sugarGram}g · 나트륨 {food.label.sodiumMilligram}mg
               </p>
-              {!ready && <p className="hint">먼저 1회·총 제공량 배지를 확인해 주세요.</p>}
+              {!ready && (
+                <p className="hint">먼저 「눌러 확인」 버튼을 눌러 주세요.</p>
+              )}
               {ready && (
                 <fieldset>
                   <legend>{food.name} 포장 전체 확인</legend>
+                  <p className="calc-hint">
+                    계산 힌트: 1회 숫자 × {times}회 = 포장 전체
+                    <br />
+                    당류 {food.label.sugarGram} × {times} = ? · 나트륨{' '}
+                    {food.label.sodiumMilligram} × {times} = ?
+                  </p>
                   <div className="chip-row">
-                    <p>포장 전체 당류 (g)</p>
+                    <p>포장 전체 당류 (g) — 숫자 고르기</p>
                     <div className="chips" role="group" aria-label={`${food.name} 당류`}>
                       {sugarChipsFor(food.id).map((n) => (
                         <button
@@ -106,13 +123,13 @@ export function Mission1WholePackage({
                             }))
                           }
                         >
-                          {n}
+                          {n}g
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className="chip-row">
-                    <p>포장 전체 나트륨 (mg)</p>
+                    <p>포장 전체 나트륨 (mg) — 숫자 고르기</p>
                     <div className="chips" role="group" aria-label={`${food.name} 나트륨`}>
                       {sodiumChipsFor(food.id).map((n) => (
                         <button
@@ -126,14 +143,14 @@ export function Mission1WholePackage({
                             }))
                           }
                         >
-                          {n}
+                          {n}mg
                         </button>
                       ))}
                     </div>
                   </div>
                   {picked.sugar !== null && picked.sodium !== null && !correct && (
                     <p className="feedback">
-                      1회 기준임을 알리고 총 제공량으로 곱했는지 확인해 보세요.
+                      힌트: 1회 숫자만 고르지 말고, × {times} 한 값을 골라 보세요.
                     </p>
                   )}
                   {correct && (
