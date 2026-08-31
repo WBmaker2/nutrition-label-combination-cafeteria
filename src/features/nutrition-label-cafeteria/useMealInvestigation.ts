@@ -36,9 +36,11 @@ export function useMealInvestigation(foods: FoodCard[]) {
 
   const totals = useMemo(() => sumSelections(selections, foods), [selections, foods])
 
-  const badgesReady = selections.every(
-    (s) => confirmedBadges[s.foodId]?.serving && confirmedBadges[s.foodId]?.package,
-  )
+  const badgesReady =
+    selections.length > 0 &&
+    selections.every(
+      (s) => confirmedBadges[s.foodId]?.serving && confirmedBadges[s.foodId]?.package,
+    )
 
   return {
     selections,

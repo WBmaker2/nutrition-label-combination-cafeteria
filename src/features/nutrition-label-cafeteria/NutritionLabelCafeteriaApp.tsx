@@ -70,7 +70,7 @@ export function NutritionLabelCafeteriaApp() {
   }
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" aria-busy={!progress.hydrated}>
       <header className="app-header">
         <p className="eyebrow">알록달록 학교 식당</p>
         <h1>영양표시 조합 식당</h1>
@@ -81,53 +81,61 @@ export function NutritionLabelCafeteriaApp() {
         )}
       </header>
 
-      {progressMissionId !== null && (
-        <MissionProgressBar currentId={progressMissionId} completed={progress.completed} />
-      )}
+      {progress.hydrated ? (
+        <>
+          {progressMissionId !== null && (
+            <MissionProgressBar currentId={progressMissionId} completed={progress.completed} />
+          )}
 
-      {screen.name === 'start' && (
-        <StartScreen
-          hubUnlocked={progress.hubUnlocked}
-          completedCount={progress.completedCount}
-          onStart={() => {
-            const next = progress.completed.findIndex((c) => !c)
-            goMission(next === -1 ? 0 : next)
-          }}
-          onHub={() => setScreen({ name: 'hub' })}
-          onOpenLog={() => setShowLog(true)}
-        />
-      )}
+          {screen.name === 'start' && (
+            <StartScreen
+              hubUnlocked={progress.hubUnlocked}
+              completedCount={progress.completedCount}
+              onStart={() => {
+                const next = progress.completed.findIndex((c) => !c)
+                goMission(next === -1 ? 0 : next)
+              }}
+              onHub={() => setScreen({ name: 'hub' })}
+              onOpenLog={() => setShowLog(true)}
+            />
+          )}
 
-      {screen.name === 'hub' && (
-        <MissionHub
-          completed={progress.completed}
-          mode={mode}
-          isUnlocked={(id) => progress.isUnlocked(id, mode)}
-          onSelect={goMission}
-          onBack={() => setScreen({ name: 'start' })}
-        />
-      )}
+          {screen.name === 'hub' && (
+            <MissionHub
+              completed={progress.completed}
+              mode={mode}
+              isUnlocked={(id) => progress.isUnlocked(id, mode)}
+              onSelect={goMission}
+              onBack={() => setScreen({ name: 'start' })}
+            />
+          )}
 
-      {screen.name === 'mission' && (
-        <MissionView
-          id={screen.id}
-          onBack={() => setScreen(progress.hubUnlocked ? { name: 'hub' } : { name: 'start' })}
-          onComplete={(summary) => finishMission(screen.id, summary)}
-        />
-      )}
+          {screen.name === 'mission' && (
+            <MissionView
+              id={screen.id}
+              onBack={() => setScreen(progress.hubUnlocked ? { name: 'hub' } : { name: 'start' })}
+              onComplete={(summary) => finishMission(screen.id, summary)}
+            />
+          )}
 
-      {screen.name === 'result' && (
-        <ResultCard
-          missionId={screen.missionId}
-          lastResult={lastResult}
-          showNext={
-            screen.missionId < MISSION_COUNT - 1 && !progress.completed[screen.missionId + 1]
-          }
-          hubUnlocked={progress.hubUnlocked}
-          onNext={() => goMission(screen.missionId + 1)}
-          onHub={() => setScreen({ name: 'hub' })}
-          onStart={() => setScreen({ name: 'start' })}
-        />
+          {screen.name === 'result' && (
+            <ResultCard
+              missionId={screen.missionId}
+              lastResult={lastResult}
+              showNext={
+                screen.missionId < MISSION_COUNT - 1 && !progress.completed[screen.missionId + 1]
+              }
+              hubUnlocked={progress.hubUnlocked}
+              onNext={() => goMission(screen.missionId + 1)}
+              onHub={() => setScreen({ name: 'hub' })}
+              onStart={() => setScreen({ name: 'start' })}
+            />
+          )}
+        </>
+      ) : (
+        <main className="card loading-state" aria-live="polite">
+          진행 기록을 불러오는 중이에요…
+        </main>
       )}
 
       {showLog && <UpdateLogModal onClose={() => setShowLog(false)} />}

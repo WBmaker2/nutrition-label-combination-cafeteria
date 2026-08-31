@@ -48,7 +48,7 @@ export function Mission0ReadLabel({
       onBack={onBack}
       canFinish={canFinish}
       onFinish={() =>
-        onComplete(`미션 0 완료: ${food.name}의 1회·총 제공량과 당류·나트륨을 확인했습니다.`)
+        onComplete(`미션 1 완료: ${food.name}의 1회·총 제공량과 당류·나트륨을 확인했습니다.`)
       }
     >
       <FoodLabelCard food={food} findMode confirmed={found} onFindField={confirmField} />

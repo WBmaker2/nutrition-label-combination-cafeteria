@@ -6,6 +6,12 @@ import { useMealInvestigation } from './useMealInvestigation'
 import { explanationReady } from './ExplanationBuilder'
 
 describe('useMealInvestigation', () => {
+  it('does not treat an empty meal as badge-ready', () => {
+    const { result } = renderHook(() => useMealInvestigation(foodCards))
+
+    expect(result.current.badgesReady).toBe(false)
+  })
+
   it('tracks selections, badges, totals, and reset', () => {
     const { result } = renderHook(() => useMealInvestigation(foodCards))
 

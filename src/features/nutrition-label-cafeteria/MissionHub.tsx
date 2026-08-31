@@ -28,7 +28,7 @@ export function MissionHub({
               onClick={() => onSelect(id)}
               title={!unlocked && mode === 'linear' ? '이전 미션을 먼저 완료해 보세요' : undefined}
             >
-              <span>미션 {id}</span>
+              <span>미션 {id + 1}</span>
               <strong>{title}</strong>
               {!unlocked && mode === 'linear' && (
                 <em className="locked">이전 미션을 먼저 완료해 보세요</em>

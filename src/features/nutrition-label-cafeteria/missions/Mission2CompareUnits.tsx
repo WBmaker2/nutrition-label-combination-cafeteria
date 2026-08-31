@@ -66,7 +66,7 @@ export function Mission2CompareUnits({
     >
       {!badgesOk && (
         <div className="actions">
-          <button type="button" className="btn-primary" onClick={confirmAll}>
+            <button type="button" className="btn-primary key-action" onClick={confirmAll}>
             세 식품 표시 기준 한 번에 확인
           </button>
         </div>

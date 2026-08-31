@@ -190,7 +190,7 @@ export function Mission4PackageVsChoice({
       )}
       <button
         type="button"
-        className="btn-primary"
+        className="btn-primary key-action"
         disabled={!badgesOk || !scenarioOk}
         onClick={confirmScenario}
       >

@@ -120,7 +120,7 @@ describe('mealValidation', () => {
 describe('accessibilityLabels', () => {
   it('formats cereal aria label', () => {
     expect(foodCardAriaLabel(getFoodById('cereal')!)).toBe(
-      '바삭 시리얼, 1회 제공량 30g, 총 3회, 당류 8g, 나트륨 90mg',
+      '바삭 시리얼, 1회 제공량 30g, 총 제공량 3회, 당류 8g, 나트륨 90mg',
     )
   })
 })

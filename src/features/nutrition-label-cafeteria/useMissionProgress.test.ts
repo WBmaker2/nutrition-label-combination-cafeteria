@@ -53,4 +53,13 @@ describe('useMissionProgress', () => {
     expect(result.current.isUnlocked(2, 'linear')).toBe(true)
     expect(result.current.isUnlocked(3, 'linear')).toBe(false)
   })
+
+  it('ignores malformed or non-boolean completion records', () => {
+    localStorage.setItem(COMPLETED_KEY, JSON.stringify([true, 'yes', false, false, false, false]))
+
+    const { result } = renderHook(() => useMissionProgress())
+
+    expect(result.current.completed).toEqual(Array(MISSION_COUNT).fill(false))
+    expect(result.current.completedCount).toBe(0)
+  })
 })

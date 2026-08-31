@@ -10,6 +10,39 @@ const IDS = ['cereal', 'cracker'] as const
 
 type Answers = Record<string, { sugar: number | null; sodium: number | null }>
 
+function getWrongAnswerHint(
+  food: ReturnType<typeof getFoodById>,
+  expected: { sugar: number; sodium: number },
+  picked: { sugar: number | null; sodium: number | null },
+  times: number,
+) {
+  if (!food || picked.sugar === null || picked.sodium === null) {
+    return '1회 제공량 × 총 제공량으로 두 숫자를 각각 계산해 보세요.'
+  }
+
+  const sugarPer = picked.sugar === food.label.sugarGram
+  const sodiumPer = picked.sodium === food.label.sodiumMilligram
+  const sugarWhole = picked.sugar === expected.sugar
+  const sodiumWhole = picked.sodium === expected.sodium
+
+  if (sugarPer && sodiumPer) {
+    return `1회 숫자를 골랐어요. 1회 숫자에 총 제공량 ${times}회를 곱해 보세요.`
+  }
+  if (sugarWhole && !sodiumWhole) {
+    return `당류는 맞아요. 나트륨은 1회 숫자 × ${times}회로 계산해 보세요.`
+  }
+  if (!sugarWhole && sodiumWhole) {
+    return `나트륨은 맞아요. 당류는 1회 숫자 × ${times}회로 계산해 보세요.`
+  }
+  if (sugarPer && !sodiumPer) {
+    return `당류는 1회 값이에요. 당류는 × ${times}회, 나트륨도 같은 방법으로 계산해 보세요.`
+  }
+  if (sodiumPer && !sugarPer) {
+    return `나트륨은 1회 값이에요. 나트륨은 × ${times}회, 당류도 같은 방법으로 계산해 보세요.`
+  }
+  return '1회 제공량 × 총 제공량으로 당류와 나트륨을 각각 계산해 보세요.'
+}
+
 export function Mission1WholePackage({
   onBack,
   onComplete,
@@ -73,9 +106,11 @@ export function Mission1WholePackage({
   })()
 
   const finishHint = !canFinish
-    ? step < IDS.length - 1 || !foodDone(food.id)
+    ? !foodDone(food.id)
       ? `${food.name}의 「눌러 확인」과 포장 전체 숫자를 맞춰 주세요`
-      : '두 식품을 모두 맞춰 주세요'
+      : step < IDS.length - 1
+        ? `다음 식품 「${getFoodById(IDS[step + 1]!)!.name}」도 풀어 주세요`
+        : '두 식품을 모두 맞춰 주세요'
     : undefined
 
   return (
@@ -166,12 +201,11 @@ export function Mission1WholePackage({
                 ))}
               </div>
             </div>
-                  {picked.sugar !== null && picked.sodium !== null && !correct && (
-                    <p className="feedback" role="status">
-                      아쉬워요! 1회 숫자만 고른 것 같아요. × {times} 한 값(포장 전체)을 골라
-                      보세요.
-                    </p>
-                  )}
+            {picked.sugar !== null && picked.sodium !== null && !correct && (
+              <p className="feedback" role="status">
+                {getWrongAnswerHint(food, current, picked, times)}
+              </p>
+            )}
             {correct && (
               <CheerBanner
                 text={`포장 전체 맞아요! 당류 ${current.sugar}g · 나트륨 ${current.sodium}mg`}

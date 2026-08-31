@@ -42,7 +42,7 @@ export function StartScreen({
         <p>{FIXED_TIP}</p>
       </details>
       <div className="actions">
-        <button type="button" className="btn-primary btn-lg" onClick={onStart}>
+        <button type="button" className="btn-primary btn-lg key-action" onClick={onStart}>
           {resume ? '이어서 하기' : '미션 시작하기'}
         </button>
         {hubUnlocked && (
