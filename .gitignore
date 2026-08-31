@@ -4,3 +4,6 @@ dist
 .worktrees
 .bkit
 *.local
+.DS_Store
+*.tsbuildinfo
+coverage

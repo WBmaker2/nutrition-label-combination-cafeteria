@@ -97,7 +97,7 @@ describe('mealValidation', () => {
     const cereal = getFoodById('cereal')!
     expect(assertServingsInRange(0, cereal)).toEqual({
       ok: false,
-      feedbackKey: 'servingsExceeded',
+      feedbackKey: 'servingsBelowMinimum',
     })
     expect(assertServingsInRange(4, cereal)).toEqual({
       ok: false,

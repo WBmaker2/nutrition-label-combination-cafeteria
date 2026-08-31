@@ -2,7 +2,10 @@ import type { FoodCard, MealCondition, MealSelection } from '../data/types'
 import { sumSelections } from './nutritionCalculation'
 
 export function assertServingsInRange(servingsChosen: number, food: FoodCard) {
-  if (servingsChosen <= 0 || servingsChosen > food.label.servingsPerPackage) {
+  if (servingsChosen < 1) {
+    return { ok: false as const, feedbackKey: 'servingsBelowMinimum' as const }
+  }
+  if (servingsChosen > food.label.servingsPerPackage) {
     return { ok: false as const, feedbackKey: 'servingsExceeded' as const }
   }
   return { ok: true as const }
@@ -30,6 +33,12 @@ export function evaluateMealCondition(
       selectedFoods.some((food) => food.category === cat),
     )
 
+  const requiredFoods =
+    !condition.requiredFoodIds ||
+    condition.requiredFoodIds.every((foodId) =>
+      selections.some((selection) => selection.foodId === foodId),
+    )
+
   let snackSlot = true
   if (condition.snackSlotCategories) {
     const drinks = selectedFoods.filter((f) => f.category === 'drink')
@@ -45,18 +54,33 @@ export function evaluateMealCondition(
 
   const servingsOk = selections.every((s) => {
     const food = foods.find((f) => f.id === s.foodId)
-    return Boolean(
-      food && s.servingsChosen > 0 && s.servingsChosen <= food.label.servingsPerPackage,
-    )
+    return Boolean(food && assertServingsInRange(s.servingsChosen, food).ok)
   })
 
+  const servingMode =
+    selections.length > 0 &&
+    selections.every((selection) => {
+      const food = foods.find((item) => item.id === selection.foodId)
+      if (!food) return false
+      return condition.servingMode === 'one-serving'
+        ? selection.servingsChosen === 1
+        : selection.servingsChosen === food.label.servingsPerPackage
+    })
+
   const passed =
-    sugar && sodium && categories && snackSlot && servingsOk && selections.length > 0
+    sugar &&
+    sodium &&
+    categories &&
+    requiredFoods &&
+    snackSlot &&
+    servingsOk &&
+    servingMode &&
+    selections.length > 0
 
   return {
     passed,
     totals,
-    checks: { sugar, sodium, categories, snackSlot, servingsOk },
+    checks: { sugar, sodium, categories, requiredFoods, snackSlot, servingsOk, servingMode },
   }
 }
 
