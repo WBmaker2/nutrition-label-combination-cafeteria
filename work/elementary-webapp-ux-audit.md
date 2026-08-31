@@ -59,7 +59,8 @@
 - 좁은 화면: 375px에서 가로 넘침 없음. 브라우저 viewport 최소 폭 제약으로 320px은 별도 캡처하지 못했으며, CSS media rule과 375px DOM 측정으로 대체 확인했습니다.
 - 핵심 행동: 시작 화면의 활성 `key-action`에 `gi-pulse` 애니메이션이 적용됨.
 - 키보드: semantic 버튼의 `focus-visible` 포커스는 확인했으나 인앱 브라우저 키 이벤트 어댑터가 React 활성화를 재현하지 못해 실제 교실 기기 수동 확인으로 남겼습니다.
-- 공개 URL은 이전 배포본 기준선이며, 이번 릴리스에서 새 커밋·푸시·배포 후 다시 확인합니다.
+- 릴리스 PR [#1](https://github.com/WBmaker2/nutrition-label-combination-cafeteria/pull/1)이 `d8bf0a6`으로 병합되었고, Pages 실행 [33390351016](https://github.com/WBmaker2/nutrition-label-combination-cafeteria/actions/runs/33390351016)이 build/deploy 모두 성공했습니다.
+- 공개 URL에서 HTTP 200, 제목 `영양표시 조합 식당`, H1, description, favicon, subpath CSS/JS와 375px 가로 넘침 없음을 확인했습니다.
 - 최종 수용 기록: [elementary-webapp-ux-acceptance.md](./elementary-webapp-ux-acceptance.md)
 
 따라서 현재 로컬 구현 기준 수용 판단은 **pass**입니다. 실제 공개 서비스 반영은 별도 릴리스 승인 뒤 공개 learner-path와 Pages/CI를 다시 확인해야 합니다.
