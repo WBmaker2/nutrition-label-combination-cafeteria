@@ -1,0 +1,200 @@
+.key-action:not(:disabled),
+.badge.needs-tap,
+.field-find.needs-tap {
+  animation: gi-pulse 1.8s ease-in-out infinite;
+}
+
+.anim-confirm {
+  animation: confirm-pop 0.4s ease-out;
+}
+
+.anim-pop {
+  animation: pop-in 0.4s ease-out;
+}
+
+.anim-fade-in {
+  animation: fade-slide-in 0.35s ease-out;
+}
+
+.cheer-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  font-weight: 850;
+}
+
+.cheer-stickers {
+  font-size: 1.25rem;
+}
+
+.one-food-stage {
+  max-width: 34rem;
+}
+
+@keyframes gi-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(42 169 154 / 0%);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgb(42 169 154 / 22%);
+  }
+}
+
+@keyframes confirm-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 700px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mission-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .food-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .result-actions {
+    flex-direction: row;
+  }
+}
+
+.meal-builder-narrow {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 1.25rem, 1100px);
+    padding-top: var(--space-4);
+  }
+
+  .card {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+  }
+
+  .mission-shell {
+    padding: var(--space-4);
+  }
+
+  .meal-builder-wide {
+    display: none;
+  }
+
+  .meal-builder-narrow {
+    display: block;
+  }
+
+  .food-grid,
+  .mission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .food-card {
+    gap: var(--space-2);
+  }
+
+  .badge-row {
+    flex-direction: column;
+  }
+
+  .badge {
+    width: 100%;
+  }
+
+  .nutrition-table th,
+  .nutrition-table td {
+    padding: 0.55rem 0.45rem;
+    font-size: 0.84rem;
+  }
+
+  .actions {
+    align-items: stretch;
+  }
+
+  .actions > button {
+    flex: 1 1 100%;
+  }
+
+  .step-tabs > button {
+    flex: 1 1 calc(50% - var(--space-2));
+  }
+
+  .result-copy-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .result-copy-row .copy-status {
+    display: block;
+  }
+
+  .mission-progress-dots {
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  button,
+  input,
+  a,
+  summary {
+    transition: none;
+  }
+
+  .key-action:not(:disabled),
+  .badge.needs-tap,
+  .field-find.needs-tap,
+  .anim-confirm,
+  .anim-pop,
+  .anim-fade-in {
+    animation: none;
+  }
+}

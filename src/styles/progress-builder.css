@@ -1,0 +1,153 @@
+.mission-progress {
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.mission-progress-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-2);
+  font-size: 0.95rem;
+}
+
+.mission-progress-track,
+.builder-progress {
+  overflow: hidden;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: #dfeee9;
+}
+
+.mission-progress-fill,
+.builder-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+}
+
+.mission-progress-dots {
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mission-progress-dots li {
+  display: grid;
+  width: 2.25rem;
+  min-height: 2.25rem;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.mission-progress-dots li.done {
+  border-color: var(--color-coral);
+  background: var(--color-coral-soft);
+  color: var(--color-coral-strong);
+}
+
+.mission-progress-dots li.current {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+}
+
+.phase-guide,
+.step-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.phase-guide li,
+.step-pill {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.87rem;
+  font-weight: 800;
+}
+
+.phase-guide li.active,
+.step-pill.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+}
+
+.phase-guide li.done,
+.step-pill.done {
+  border-color: var(--color-coral);
+  background: var(--color-coral-soft);
+  color: var(--color-coral-strong);
+}
+
+.phase-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.phase-heading {
+  margin-bottom: var(--space-3);
+  font-size: 1.08rem;
+}
+
+.mission-phase-block {
+  margin: var(--space-5) 0 var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--color-border-strong);
+}
+
+.compare-food-block {
+  margin-bottom: var(--space-5);
+}
+
+.builder-progress {
+  margin-bottom: var(--space-2);
+}
+
+.builder-step-label {
+  margin-bottom: var(--space-3);
+  font-weight: 750;
+}
+
+.step-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.explanation-sentence {
+  font-size: 1.08rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.total-line {
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.loading-state {
+  text-align: center;
+  font-weight: 750;
+}
