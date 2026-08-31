@@ -24,7 +24,7 @@ export function MissionShell({
       {message && <p className="hint">{message}</p>}
       {children}
       {!canFinish && finishHint && (
-        <p className="finish-hint" role="status">
+        <p className="finish-hint" id="finish-hint" role="status">
           아직: {finishHint}
         </p>
       )}
@@ -32,7 +32,13 @@ export function MissionShell({
         <button type="button" className="btn-secondary" onClick={onBack}>
           뒤로
         </button>
-        <button type="button" className="btn-primary" disabled={!canFinish} onClick={onFinish}>
+        <button
+          type="button"
+          className={canFinish ? 'btn-primary key-action' : 'btn-primary'}
+          disabled={!canFinish}
+          aria-describedby={!canFinish && finishHint ? 'finish-hint' : undefined}
+          onClick={onFinish}
+        >
           완료
         </button>
       </div>

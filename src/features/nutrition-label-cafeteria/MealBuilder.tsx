@@ -49,6 +49,16 @@ export function MealBuilder({
     Boolean(confirmedBadges[foodId]?.serving && confirmedBadges[foodId]?.package)
 
   const servingsLocked = (foodId: string) => !badgeOk(foodId)
+  const allBadgesOk =
+    selections.length > 0 &&
+    selectedFoods.length === selections.length &&
+    selectedFoods.every(({ food }) => badgeOk(food.id))
+  const canVisitStep = (candidate: Step) => {
+    if (candidate === 'select') return true
+    if (selections.length === 0) return false
+    if (candidate === 'servings') return true
+    return allBadgesOk
+  }
 
   const wideGrid = (
     <div className="food-grid meal-builder-wide">
@@ -109,7 +119,11 @@ export function MealBuilder({
             role="tab"
             className={step === s ? 'btn-primary' : 'btn-secondary'}
             aria-selected={step === s}
-            onClick={() => setStep(s)}
+            aria-disabled={!canVisitStep(s)}
+            disabled={!canVisitStep(s)}
+            onClick={() => {
+              if (canVisitStep(s)) setStep(s)
+            }}
           >
             {i + 1}. {s === 'select' ? '식품 선택' : s === 'servings' ? '제공량' : '합계'}
           </button>
@@ -136,7 +150,7 @@ export function MealBuilder({
           })}
           <button
             type="button"
-            className="btn-primary"
+            className="btn-primary key-action"
             disabled={selections.length === 0}
             onClick={() => setStep('servings')}
           >
@@ -172,16 +186,26 @@ export function MealBuilder({
             <button type="button" className="btn-secondary" onClick={() => setStep('select')}>
               선택으로
             </button>
-            <button type="button" className="btn-primary" onClick={() => setStep('summary')}>
+            <button
+              type="button"
+              className={canVisitStep('summary') ? 'btn-primary key-action' : 'btn-primary'}
+              disabled={!canVisitStep('summary')}
+              onClick={() => {
+                if (canVisitStep('summary')) setStep('summary')
+              }}
+            >
               합계로
             </button>
           </div>
+          {!canVisitStep('summary') && (
+            <p className="hint">합계로 가려면 선택한 식품의 1회·총 제공량을 먼저 확인해 주세요.</p>
+          )}
         </div>
       )}
 
       {step === 'summary' && (
         <div>
-          <p>
+          <p className="total-line" aria-live="polite">
             당류 합: {totals.sugarGram}g · 나트륨 합: {totals.sodiumMilligram}mg
           </p>
           <ul>

@@ -39,7 +39,10 @@ export function FoodLabelCard({
   return (
     <article
       className={`card food-card${selected ? ' selected' : ''}`}
-      aria-label={foodCardAriaLabel(food)}
+      aria-label={foodCardAriaLabel(food, {
+        hideUnconfirmed: Boolean(findMode),
+        confirmed,
+      })}
     >
       <div className="food-head">
         <span className="food-icon" aria-hidden="true">
@@ -62,7 +65,11 @@ export function FoodLabelCard({
           onClick={() => tapBadge('serving')}
           aria-pressed={Boolean(confirmed?.serving)}
         >
-          {confirmed?.serving ? '✓ ' : '눌러 확인 · '}1회 제공량 · {unit}
+          {confirmed?.serving
+            ? `✓ 1회 제공량 · ${unit}`
+            : findMode
+              ? '1회 제공량 확인하기'
+              : `1회 제공량 확인하기 · ${unit}`}
         </button>
         <button
           type="button"
@@ -70,15 +77,18 @@ export function FoodLabelCard({
           onClick={() => tapBadge('package')}
           aria-pressed={Boolean(confirmed?.package)}
         >
-          {confirmed?.package ? '✓ ' : '눌러 확인 · '}총 제공량 · {food.label.servingsPerPackage}
-          회
+          {confirmed?.package
+            ? `✓ 총 제공량 · ${food.label.servingsPerPackage}회`
+            : findMode
+              ? '총 제공량 확인하기'
+              : `총 제공량 확인하기 · ${food.label.servingsPerPackage}회`}
         </button>
       </div>
       <table className="nutrition-table">
         <thead>
           <tr>
-            <th>🍬 당류 (g)</th>
-            <th>🧂 나트륨 (mg)</th>
+            <th scope="col">🍬 당류 (g)</th>
+            <th scope="col">🧂 나트륨 (mg)</th>
           </tr>
         </thead>
         <tbody>
@@ -90,8 +100,16 @@ export function FoodLabelCard({
                   className={`field-find${confirmed?.sugar ? ' confirmed anim-confirm' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sugar')}
                   aria-pressed={Boolean(confirmed?.sugar)}
+                  aria-label={
+                    confirmed?.sugar
+                      ? `${food.name} 당류 ${food.label.sugarGram}g 확인됨`
+                      : `${food.name} 당류 값 확인하기`
+                  }
+                  aria-live="polite"
                 >
-                  {confirmed?.sugar ? `✓ ${food.label.sugarGram}g` : `눌러 찾기 · ${food.label.sugarGram}g`}
+                  {confirmed?.sugar
+                    ? `✓ 당류 ${food.label.sugarGram}g`
+                    : '당류 값 확인하기'}
                 </button>
               ) : (
                 `${food.label.sugarGram}g`
@@ -104,10 +122,16 @@ export function FoodLabelCard({
                   className={`field-find${confirmed?.sodium ? ' confirmed anim-confirm' : ' needs-tap'}`}
                   onClick={() => onFindField?.('sodium')}
                   aria-pressed={Boolean(confirmed?.sodium)}
+                  aria-label={
+                    confirmed?.sodium
+                      ? `${food.name} 나트륨 ${food.label.sodiumMilligram}mg 확인됨`
+                      : `${food.name} 나트륨 값 확인하기`
+                  }
+                  aria-live="polite"
                 >
                   {confirmed?.sodium
-                    ? `✓ ${food.label.sodiumMilligram}mg`
-                    : `눌러 찾기 · ${food.label.sodiumMilligram}mg`}
+                    ? `✓ 나트륨 ${food.label.sodiumMilligram}mg`
+                    : '나트륨 값 확인하기'}
                 </button>
               ) : (
                 `${food.label.sodiumMilligram}mg`
@@ -156,20 +180,28 @@ export function Stepper({
   }
 
   return (
-    <div className="stepper" role="group" aria-label="제공량 선택">
+    <div className="stepper" role="group" aria-label={`${food.name} 제공량 선택`}>
       <button
         type="button"
         className="btn-secondary"
         disabled={disabled}
+        aria-label={`${food.name} 제공량 1회 줄이기`}
         onClick={() => tryChange(value - 1)}
       >
         −
       </button>
-      <span className="stepper-value">{value}회</span>
+      <span
+        className="stepper-value"
+        aria-live="polite"
+        aria-label={`${food.name} 현재 제공량 ${value}회`}
+      >
+        {value}회
+      </span>
       <button
         type="button"
         className="btn-secondary"
         disabled={disabled}
+        aria-label={`${food.name} 제공량 1회 늘리기`}
         onClick={() => tryChange(value + 1)}
       >
         +

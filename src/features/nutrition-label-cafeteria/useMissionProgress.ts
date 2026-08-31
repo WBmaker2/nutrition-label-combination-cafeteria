@@ -9,10 +9,14 @@ function readCompleted(): boolean[] {
     const raw = localStorage.getItem(COMPLETED_KEY)
     if (!raw) return Array(MISSION_COUNT).fill(false)
     const parsed = JSON.parse(raw) as unknown
-    if (!Array.isArray(parsed) || parsed.length !== MISSION_COUNT) {
+    if (
+      !Array.isArray(parsed) ||
+      parsed.length !== MISSION_COUNT ||
+      !parsed.every((value): value is boolean => typeof value === 'boolean')
+    ) {
       return Array(MISSION_COUNT).fill(false)
     }
-    return parsed.map((v) => Boolean(v))
+    return parsed
   } catch {
     return Array(MISSION_COUNT).fill(false)
   }

@@ -1,0 +1,329 @@
+.food-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.food-head h3 {
+  margin-bottom: var(--space-1);
+}
+
+.food-head p {
+  margin-bottom: 0;
+}
+
+.food-icon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-subtle);
+  font-size: 2rem;
+}
+
+.food-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+}
+
+.food-card.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.tap-cue {
+  margin: 0;
+  color: var(--color-coral-strong);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.badge {
+  display: inline-flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-1);
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+.badge-serving {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+}
+
+.badge-package {
+  border-color: var(--color-coral);
+  background: var(--color-coral-soft);
+  color: var(--color-coral-strong);
+}
+
+.badge.confirmed {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.nutrition-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+
+.nutrition-table th,
+.nutrition-table td {
+  padding: 0.65rem 0.7rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.nutrition-table th {
+  background: var(--color-surface-subtle);
+  font-size: 0.9rem;
+}
+
+.nutrition-table th:first-child {
+  border-radius: var(--radius-sm) 0 0 0;
+}
+
+.nutrition-table th:last-child {
+  border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.nutrition-table td {
+  font-weight: 800;
+}
+
+.field-find {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 0.35rem 0.55rem;
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-weight: 800;
+  text-align: left;
+}
+
+.field-find.confirmed {
+  border-style: solid;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+}
+
+.mission-grid,
+.food-grid {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-5) 0;
+}
+
+.mission-card {
+  display: flex;
+  min-height: 8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  text-align: left;
+}
+
+.mission-card:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.mission-card strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.mission-card em {
+  color: var(--color-primary-strong);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.mission-card .locked {
+  color: var(--color-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.stepper {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.stepper-value {
+  min-width: 4.5rem;
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 850;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+fieldset {
+  margin: var(--space-5) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+legend {
+  padding: 0 var(--space-2);
+  font-weight: 850;
+}
+
+label {
+  display: block;
+  margin: var(--space-2) 0;
+}
+
+input[type='text'],
+input:not([type]) {
+  min-height: var(--touch-min);
+  margin-left: var(--space-2);
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.condition-checklist {
+  margin: var(--space-4) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.condition-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+  font-weight: 700;
+}
+
+.condition-checklist .sticker {
+  min-width: 1.4rem;
+}
+
+.check-pass {
+  color: var(--color-primary-strong);
+}
+
+.check-fail {
+  color: var(--color-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  min-height: var(--touch-min);
+  padding: 0.45rem 0.85rem;
+  border-color: var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-weight: 800;
+}
+
+.chip:hover:not(:disabled),
+.chip.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.chip-row {
+  margin: var(--space-4) 0;
+}
+
+.chip-row > p {
+  margin-bottom: var(--space-2);
+  font-weight: 750;
+}
+
+.calc-hint,
+.target-board {
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-warm);
+  color: var(--color-warning);
+  font-weight: 750;
+}
+
+.target-board-title {
+  margin-bottom: var(--space-2);
+  font-weight: 850;
+}
+
+.target-board ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.target-serving {
+  margin: var(--space-2) 0;
+  color: var(--color-warning);
+  font-weight: 750;
+}
+
+.target-serving.match {
+  color: var(--color-primary-strong);
+}
+
+.target-dir {
+  color: var(--color-coral-strong);
+}
+
+.radio-touch {
+  display: flex;
+  min-height: var(--touch-min);
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-2) 0;
+  padding: 0.45rem 0.7rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.radio-touch:has(input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.radio-touch input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}

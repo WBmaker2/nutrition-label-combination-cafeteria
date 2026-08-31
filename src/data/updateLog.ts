@@ -1,6 +1,10 @@
 export const updateLog = [
   { date: '2026-07-27', body: '최초 MVP 설계: 영양표시 기준 확인과 식단 조합' },
   { date: '2026-07-27', body: '표시판 읽기·포장 전체 계산·5개 조합 미션 추가' },
+  {
+    date: '2026-08-31',
+    body: '제공량 조건 판정·미션 흐름·학습자 문구·접근성·반응형 UI와 테스트를 개선했어요.',
+  },
 ] as const
 
 export const FIXED_TIP =
